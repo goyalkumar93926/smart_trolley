@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: smart-trolley-backend
+    env: python
+    region: oregon
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: python app.py
+    envVars:
+      - key: FLASK_ENV
+        value: development

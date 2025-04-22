@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Page</title>
+</head>
+<body>
+    <h1>Payment for Trolley ID: {{ trolley_id }}</h1>
+    <form action="{{ url_for('acknowledgment', trolley_id=trolley_id) }}" method="post">
+        <h2>Confirm Payment</h2>
+        <button type="submit">Pay Now</button>
+    </form>
+</body>
+</html>
