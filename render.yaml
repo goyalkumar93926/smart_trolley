@@ -1,11 +1,7 @@
 services:
   - type: web
-    name: smart-trolley-backend
+    name: smart-trolley
     env: python
-    region: oregon
-    plan: free
     buildCommand: pip install -r requirements.txt
-    startCommand: python app.py
-    envVars:
-      - key: FLASK_ENV
-        value: development
+    startCommand: gunicorn --worker-class eventlet -w 1 wsgi:app
+    plan: free
