@@ -10,8 +10,8 @@ app = Flask(__name__)
 socketio = SocketIO(app)
 
 # 🌐 Your Render Base URL
- RENDER_BASE_URL = "https://your-app-name.onrender.com"
- # Replace this with your actual Render URL
+RENDER_BASE_URL = "https://your-app-name.onrender.com"
+# Replace this with your actual Render URL
 
 # --- Dummy DBs ---
 items_db = {
