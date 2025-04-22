@@ -9,9 +9,8 @@ from flask_socketio import SocketIO
 app = Flask(__name__)
 socketio = SocketIO(app)
 
-# 🌐 Your Render Base URL
-RENDER_BASE_URL = "https://your-app-name.onrender.com"
-# Replace this with your actual Render URL
+# Use the dynamic base URL from the request
+RENDER_BASE_URL = request.host_url  # Dynamically gets the base URL of the current request
 
 # --- Dummy DBs ---
 items_db = {
@@ -140,7 +139,7 @@ def generate_bill():
         message = f"🧾 Smart Cart Bill\nBill ID: {bill_id}\nUser: {user['name']}\n"
         for item in cart:
             message += f"{item['name']} x{item['qty']} = ₹{item['price'] * item['qty']}\n"
-        message += f"Total: ₹{total}\n👉 Pay Now: {RENDER_BASE_URL}/payment/{bill_id}"
+        message += f"Total: ₹{total}\n👉 Pay Now: {request.host_url.rstrip('/')}/payment/{bill_id}"
         send_whatsapp(message, user["phone"])
 
     carts[user_uid] = []
@@ -166,7 +165,7 @@ def mark_paid(bill_id):
         user = user_db.get(user_uid)
         if user:
             send_whatsapp(
-                f"✅ Payment Received for Bill {bill_id}. Thank you!\nView acknowledgment: {RENDER_BASE_URL}/acknowledgment/{bill_id}",
+                f"✅ Payment Received for Bill {bill_id}. Thank you!\nView acknowledgment: {request.host_url.rstrip('/')}/acknowledgment/{bill_id}",
                 user["phone"]
             )
         return "Payment successful!"
